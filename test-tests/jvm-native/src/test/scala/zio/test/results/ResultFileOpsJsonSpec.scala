@@ -53,7 +53,7 @@ object ResultFileOpsJsonSpec extends ZIOBaseSpec {
       tmpFilePath <- ZIO.service[Path]
       source       = scala.io.Source.fromFile(tmpFilePath.toString)
       _           <- ZIO.addFinalizer(ZIO.succeed(source.close()))
-      lines <- ZIO.attempt {
+      lines       <- ZIO.attempt {
                  source.getLines().toList
                }.orDie
     } yield lines
@@ -62,7 +62,7 @@ object ResultFileOpsJsonSpec extends ZIOBaseSpec {
     ZLayer.fromZIO {
       for {
         fileLock <- Ref.Synchronized.make[Unit](())
-        result <- ZIO
+        result   <- ZIO
                     .attempt(
                       java.nio.file.Files.createTempFile("zio-test", ".json")
                     )
