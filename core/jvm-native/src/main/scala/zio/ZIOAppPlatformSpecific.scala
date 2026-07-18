@@ -28,7 +28,7 @@ private[zio] trait ZIOAppPlatformSpecific { self: ZIOApp =>
         for {
           fiberId <- ZIO.fiberId
           p       <- Promise.make[Nothing, Set[FiberId.Runtime]]
-          fiber <- restore(workflow).onExit { exit0 =>
+          fiber   <- restore(workflow).onExit { exit0 =>
                      val exitCode  = if (exit0.isSuccess) ExitCode.success else ExitCode.failure
                      val interrupt = interruptRootFibers(p)
                      // If we're shutting down due to an external signal, the shutdown hook will fulfill the promise

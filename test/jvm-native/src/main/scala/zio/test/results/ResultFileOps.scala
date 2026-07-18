@@ -47,7 +47,7 @@ private[test] object ResultFileOps {
 
     private val removeLastComma =
       for {
-        source <- ZIO.succeed(Source.fromFile(resultPath))
+        source      <- ZIO.succeed(Source.fromFile(resultPath))
         updatedLines = {
           val lines = source.getLines().toList
           if (lines.nonEmpty && lines.last.endsWith(",")) {
